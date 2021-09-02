@@ -3,20 +3,24 @@ require('dotenv').config()
 const UserPool = require('../repos/user-repo')
 
 module.exports = async (req, res, next) => {
-    try {
-       const jwtToken = req.header("token");
+    let token
 
-       if(!jwtToken) {
-           return res.status(401).json("Not Authorize")
-       }
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+        try {
+            token = req.headers.authorization.split(' ')[1]
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            
+            req.user = await UserPool.findById(decoded.id)
 
-       const payload = jwt.verify(jwtToken, process.env.JWT_SECRET)
-
-       req.user = await UserPool.findById(payload.id)
-  
-       next()
-    } catch (error) {
-        console.error(error.message);
-        return res.status(401).json( "Not Authorize")
+        } catch (err) {
+            res.status(401).json('Not authorized, token failed')
+        }
     }
+
+    if(!token){
+        res.status(401).json('Not authorized, no token')
+    }
+
+    next()
+
 }

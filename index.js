@@ -5,11 +5,11 @@ require('dotenv').config()
 const PORT = process.env.PORT || 3005
 
 // const devConfig = {
-//     user: process.env.PG_USER,
-//     password: process.env.PG_PASSWORD,
-//     host: process.env.PG_HOST,
-//     database: process.env.PG_DATABASE,
-//     port: process.env.PG_PORT
+//     user: 'postgres',
+//     password: 'password',
+//     host: '0.0.0.0',
+//     database: 'cricket_tournament',
+//     port: 5432
 // }
 
 
