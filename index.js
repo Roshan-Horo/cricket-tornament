@@ -23,3 +23,4 @@ pool.connect({
 app().listen(PORT, () => console.log(`Listening on PORT ${PORT}`))
 })
 .catch(err => console.error(err))
+
