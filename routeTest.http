@@ -1,0 +1,31 @@
+http://localhost:3005
+
+###
+GET http://localhost:3005/teams
+
+###
+GET http://localhost:3005/teams/1
+
+###
+GET http://localhost:3005/teams/5/players
+
+###
+GET http://localhost:3005/players
+
+###
+GET http://localhost:3005/players/50
+
+###
+GET http://localhost:3005/venues
+
+###
+GET http://localhost:3005/venues/3
+
+###
+GET http://localhost:3005/matches
+
+###
+GET http://localhost:3005/matches/result
+
+###
+GET http://localhost:3005/scores
