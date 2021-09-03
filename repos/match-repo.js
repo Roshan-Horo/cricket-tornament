@@ -29,25 +29,23 @@ class MatchPool {
         ;
         `)
 
-        return toCamelCase(rows)
+        return toCamelCase([])
     }
 
     static async createMatch(data){
+        
         const { rows } =  await pool.query(`
-        BEGIN;
-
-        INSERT INTO matches(team_1,team_2,venue, winner, looser, man_of_the_match, bowler_of_the_match, best_fielder)
+        WITH A as (
+            INSERT INTO matches(team_1,team_2,venue, winner, looser, man_of_the_match, bowler_of_the_match, best_fielder)
         VALUES
-            ($1,$2,$3,$4,$5,$6,$7,$8);
-            
+            ($1,$2,$3,$4,$5,$6,$7,$8)
+        )
         UPDATE scoreboard
         SET
             score = (SELECT score FROM scoreboard WHERE team_id = $4) + 2,
             crr = (SELECT crr FROM scoreboard WHERE team_id = $4) + $9
         WHERE 
             team_id = $4;
-            
-        COMMIT;
         ` ,[
             data.team_1,
             data.team_2,
@@ -59,6 +57,8 @@ class MatchPool {
             data.bestFielder,
             data.crr
         ])
+
+
 
         return toCamelCase(rows)
     }

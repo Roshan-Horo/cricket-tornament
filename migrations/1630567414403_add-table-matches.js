@@ -6,6 +6,8 @@ exports.up = pgm => {
     pgm.sql(`
     CREATE TABLE matches (
         id SERIAL PRIMARY KEY,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
             team_1 INTEGER REFERENCES teams(id) NOT NULL,
             team_2 INTEGER REFERENCES teams(id) NOT NULL,
             venue INTEGER REFERENCES venues(id) NOT NULL,
